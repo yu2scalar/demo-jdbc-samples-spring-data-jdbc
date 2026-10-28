@@ -29,7 +29,8 @@ public interface OrderingStatementsJdbcRepository
     @Query("DELETE FROM ordering.statements WHERE order_id = :orderId AND line_no = :lineNo")
     int deleteRow(@Param("orderId") String orderId, @Param("lineNo") Integer lineNo);
 
+    // DELETE, not TRUNCATE: ScalarDB Native JDBC refuses TRUNCATE on a ScalarDB table
     @Modifying
-    @Query("TRUNCATE TABLE ordering.statements")
+    @Query("DELETE FROM ordering.statements")
     void truncate();
 }

@@ -32,7 +32,8 @@ public interface InventoryItemsJdbcRepository extends ListCrudRepository<Invento
     @Query("DELETE FROM inventory.items WHERE item_id = :itemId")
     int deleteRow(@Param("itemId") Integer itemId);
 
+    // DELETE, not TRUNCATE: ScalarDB Native JDBC refuses TRUNCATE on a ScalarDB table
     @Modifying
-    @Query("TRUNCATE TABLE inventory.items")
+    @Query("DELETE FROM inventory.items")
     void truncate();
 }

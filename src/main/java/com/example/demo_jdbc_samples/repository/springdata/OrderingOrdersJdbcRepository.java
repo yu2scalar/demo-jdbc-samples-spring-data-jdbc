@@ -35,7 +35,8 @@ public interface OrderingOrdersJdbcRepository extends ListCrudRepository<Orderin
     @Query("DELETE FROM ordering.orders WHERE order_id = :orderId")
     int deleteRow(@Param("orderId") String orderId);
 
+    // DELETE, not TRUNCATE: ScalarDB Native JDBC refuses TRUNCATE on a ScalarDB table
     @Modifying
-    @Query("TRUNCATE TABLE ordering.orders")
+    @Query("DELETE FROM ordering.orders")
     void truncate();
 }

@@ -37,7 +37,8 @@ public interface CustomerCustomersJdbcRepository extends ListCrudRepository<Cust
     @Query("DELETE FROM customer.customers WHERE customer_id = :customerId")
     int deleteRow(@Param("customerId") Integer customerId);
 
+    // DELETE, not TRUNCATE: ScalarDB Native JDBC refuses TRUNCATE on a ScalarDB table
     @Modifying
-    @Query("TRUNCATE TABLE customer.customers")
+    @Query("DELETE FROM customer.customers")
     void truncate();
 }
